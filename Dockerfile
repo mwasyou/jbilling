@@ -5,22 +5,13 @@ MAINTAINER Giambanco Giuseppe <giambancogiuseppe@yahoo.it>
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt-get -y -q  install  python-software-properties software-properties-common
+#RUN apt-get -y -q  install  python-software-properties software-properties-common
 RUN apt-get -y install openssh-server && mkdir /var/run/sshd
-RUN apt-get -y install vim git zip unzip bzip2 fontconfig
+RUN apt-get -y install vim git zip unzip bzip2
 RUN apt-get -y install sudo wget tar curl
 RUN apt-get -y install supervisor
 RUN apt-get install -yqq inetutils-ping net-tools
 
-#RUN apt-get -y install ghostscript
-#RUN apt-get -y install libgs-dev
-#RUN apt-get -y install build-essential
-#RUN apt-get -y install checkinstall
-#RUN apt-get -y install autoconf automake libtool
-#RUN apt-get -y install libjpeg62-dev
-#RUN apt-get -y install libtiff5
-#RUN apt-get -y install libhocr0
-#RUN apt-get -y install ruby
 
 
 
@@ -51,7 +42,7 @@ WORKDIR /opt
 # Download jbilling
 RUN wget http://cznic.dl.sourceforge.net/project/jbilling/jbilling%20Latest%20Stable/jbilling-3.1.0/jbilling-community-3.1.0.zip -O jbilling-community-3.1.0.zip
 
-# qui scompatterò il file da scaricare (link da verificare )
+# qui scompatterï¿½ il file da scaricare (link da verificare )
 RUN unzip jbilling-community-3.1.0.zip
 
 
@@ -65,4 +56,6 @@ WORKDIR /opt/jbilling-community-3.1.0/
 # expose the SSHD port, and run SSHD
 EXPOSE 8080
 EXPOSE 22
+
+
 CMD ["/usr/bin/supervisord"]

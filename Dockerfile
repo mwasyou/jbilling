@@ -32,7 +32,7 @@ RUN apt-get -y install openjdk-7-jre
 #Allego supervisor
 WORKDIR /etc/supervisor/conf.d
 RUN mkdir -p   /var/run/sshd /var/log/supervisor
-COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 
 # mi posiziono sul contesto della cartella opt
@@ -51,7 +51,24 @@ WORKDIR /opt/jbilling-community-3.1.0
 
 #Privilegi per installare jbilling
 RUN chmod +x bin/*.sh
-WORKDIR /opt/jbilling-community-3.1.0/
+WORKDIR /opt/jbilling-community-3.1.0/lib
+RUN wget http://central.maven.org/maven2/org/postgresql/postgresql/9.3-1100-jdbc41/postgresql-9.3-1100-jdbc41.jar
+RUN wget http://central.maven.org/maven2/org/hsqldb/hsqldb/2.2.8/hsqldb-2.2.8.jar
+
+#sudo mkdir -p /home/jbilling/jbilling/enterprise/image/bin/hsql/
+#sudo chmod 777  /home/jbilling/
+#sudo  chmod -R 777  /home/jbilling/
+
+
+ADD jbilling-DataSource.groovy /opt/jbilling-community-3.1.0/jbilling/jbilling-DataSource.groovy
+
+# configure the "ntipa" and "root" users
+RUN echo 'root:ntipa' |chpasswd
+RUN groupadd ntipa && useradd ntipa -s /bin/bash -m -g ntipa -G ntipa && adduser ntipa sudo
+RUN echo 'ntipa:ntipa' |chpasswd	
+RUN sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
+
 
 # expose the SSHD port, and run SSHD
 EXPOSE 8080

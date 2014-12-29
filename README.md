@@ -7,14 +7,13 @@ docker-ntipa-base
 =================
 
 ### To build:
-	Spostarsi nella directory e lanciare il comando
-    sudo docker build -t tornabene/ntipa-jbilling .
+    sudo docker build -t guigo2k/jbilling .
 
 ### To run:
 
-    sudo docker pull tornabene/ntipa-jbilling
-    sudo docker run -t -i --name ntipa-base -p 8022:22 -p 8080:8080 tornabene/ntipa-jbilling
-    sudo docker run -d --name ntipa-base -p 8022:22 -p 8080:8080 tornabene/ntipa-jbilling
+    sudo docker pull guigo2k/jbilling
+    sudo docker run -t -i --name jbilling -p 8022:22 -p 8080:8080 guigo2k/jbilling
+    sudo docker run -d --name jbilling -p 8022:22 -p 8080:8080 guigo2k/jbilling
     
     
     

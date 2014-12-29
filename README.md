@@ -1,10 +1,5 @@
-ntipa-jbilling
+jBilling Docker
 ==============
-
-
-
-docker-ntipa-base
-=================
 
 ### To build:
     sudo docker build -t guigo2k/jbilling .
